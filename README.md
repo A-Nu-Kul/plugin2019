@@ -78,4 +78,4 @@ Easy. Just add `[campaigns]` into your page content.
 
 You can use the `[Gandhipeacedonation_donation_form]` shortcode to embed a particular campaign's donation form on a page.
 
-
+**************************************************THE END*************************************************************************
