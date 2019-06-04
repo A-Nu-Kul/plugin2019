@@ -11,7 +11,7 @@ Stable tag: 1.6.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Grow your online fundraising with Gandhipeacedonation, the powerful WordPress donation plugin.
+Goal :Grow your online fundraising with Gandhipeacedonation, the powerful WordPress donation plugin.
 
 == Description ==
 
