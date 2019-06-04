@@ -1,6 +1,7 @@
 *Gandhipeacedonation - Donation Plugin*
 *Contributor: Anukul Sharma*
-*Donate link: # (Its just for test so the link is not given) *
+*Donate link: # (Its just for test so the link is not given) 
+************************************************************************************************************************
 
 
 Tags: donations, donate, donation plugin, fundraising, fundraising plugin, non-profit, non-profits, charity, churches, commerce, crowdfunding, crowd funding, paypal donations, paypal, stripe, stripe donations, campaigns, gifts, giving, wordpress fundraising, wordpress donations, wordpress donation plugin, peer to peer fundraising, peer to peer fundraiser, peer fundraising, social fundraising
