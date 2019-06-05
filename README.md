@@ -1,81 +1,73 @@
-*Gandhipeacedonation - Donation Plugin*
-*Contributor: Anukul Sharma*
-*Donate link: # (Its just for test so the link is not given) 
-************************************************************************************************************************
-
-
-Tags: donations, donate, donation plugin, fundraising, fundraising plugin, non-profit, non-profits, charity, churches, commerce, crowdfunding, crowd funding, paypal donations, paypal, stripe, stripe donations, campaigns, gifts, giving, wordpress fundraising, wordpress donations, wordpress donation plugin, peer to peer fundraising, peer to peer fundraiser, peer fundraising, social fundraising
-Requires at least: 4.1
-Tested up to: 5.2.1
-Stable tag: 1.6.18
+=== Gandhipeace Donation ===
+Contributors:AnukulSharma,wp-plugin
+Donate link: http://anukuls.sgedu.site/
+Version: 1.0.0
+Tags: donation, donate, donations, charity, paypal, gateway, paypal donation, paypal donate
+Author URI: http://anukuls.sgedu.site/
+Version: 1.0.0
+Requires at least: 3.0
+Tested up to: 5.2
+Requires PHP: 5.4
+Stable tag: 1.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Goal :Grow your online fundraising with Gandhipeacedonation, the powerful WordPress donation plugin.
-
 == Description ==
+= Overview =
 
-**[Gandhipeacedonation](https://anukuls.sgedu.site/plugin)** is the donation plugin that gives user everything that need to start accepting donations today. Designed to integrate seamlessly with WordPress, Gandhipeacedonation allows non-profits and developers to create powerful fundraising platforms on their own website.
+This plugin will allow us to collect PayPal donations on your website.
 
-=  Features =
-**Unlimited Campaigns for GSML**
 
-* Create as many fundraising campaigns as Gandhipeacedonation need.
-* Set goals for the GSML campaigns.
-* Create time-sensitive campaigns that end automatically when they're finished.
-* Inherits any theme's styles for seamless integration.
+You can place a PayPal Donation button anywhere on your site where you want to collect money. Your customers can use their PayPal account or Credit Card to donate money to you.
 
-**Customizable Donation Forms**
+What makes this PayPal donation plugin powerful is its simplicity. Just install the plugin and in just a few minutes customers from around the world can start donating to you via PayPal.
 
-* Provide suggested amounts, allow people to donate as much as they want, or do both.
-* Load donation forms in a modal, on a separate page, or on the same page as the campaign.
-* Shorten your donation forms by just showing required fields.
-* Embed a donation form on any page.
+On the settings page of the plugin you will find clear instructions on how to sign up for a PayPal account if you don't have one already. The plugin also provides instructions for how to setup a PayPal Sandbox account - which will allow you to setup a fake PayPal buyer and seller account (with fake money) so you can test everything before you start selling to the public.
 
-**PayPal & Offline Payment Support**
+This PayPal plugin works with any WordPress theme.
 
-* Easy PayPal setup. Add your PayPal address and you're done.
-* Customize your offline donation instructions.
 
-**Donation Management**
 
-* Create and edit donations in the dashboard. No add-on necessary.
-* Resend donation emails.
-* Sort and search donations in the dashboard.
-* Export a CSV report of donations.
+= PayPal Donation Features =
 
-**Customizable Emails**
-
-* Automated donation receipt.
-* Offline donation receipts with payment instructions.
-* Admin notifications when people donate or campaigns end.
-* Password reset & email verification messages.
-
-= Why Gandhipeacedonation was made =
-
-Gandhipeacedonation was built because when we were tired of seeing non-profits use hosted fundraising platforms that charge hefty fees and strip them of the ability to brand & control their donation pages. Other WordPress donation plugins existed, but they missed important functionality or were poorly supported, leaving non-profits to choose between expensive platforms or plugins lacking the features they really needed.
-
-So we created & launched Gandhipeacedonation in 2019 as a feature-rich, affordable WordPress alternative to hosted fundraising platforms. With Gandhipeacedonation, we won’t charge you any transaction fees for the donations you receive, and you can use the core Gandhipeacedonation plugin for free, forever. We support Gandhipeacedonation’s development through extension purchases, which add extra features.
+*	View donations made in your WordPress admin
+*	Button Manager
+*   Page / Post Button shortcode Inserter
+*	Donation Widget
+*   Built in support for 18 languages (PayPal currently supports 18 languages)
+*   Built in support 25 currencies (PayPal currently supports 25 currencies)
+*	Each button can have its own language and currency
+*	Each button can have its own button image
+*	Each button can have itw own PayPal account
+*	PayPal testing with Sandbox mode
+*	Customer can choose to make a recurring monthly PayPal donation
+*	Choose  from 7 different PayPal donation buttons
+*	Upload and use your own donation button
+*	Choose how the PayPal window opens
+*	Setup a dropdown menu to force certain amounts
 
 
 == Installation ==
 
-1. Upload `Gandhipeacedonation.php` to the `/wp-content/plugins/` directory.
-1. Activate the plugin through the 'Plugins' menu in WordPress.
-1. Go to Gandhipeacedonation > Add Campaign to create your first campaign!
-
+= Automatic Installation =
+> 1. Sign in to your WordPress site as an administrator.
+> 2. In the main menu go to Plugins -> Add New.
+> 3. Search for PayPal Donation Button and click install.
+> 4. Configure values on the settings page.
+> 5. Make a donation button on the button page. Place the shortcode it creates anywhere on your site to show the button.
+> 6. You are now ready to start collecting donations via PayPal on your site.
 == Frequently Asked Questions ==
 
-= I don't want to send my donors to PayPal. How can I accept donations right on my site? =
+= How do I use this PayPal plugin =
+Configure values on the settings page. Make a donation button on the button page. Place the shortcode it creates anywhere on your site to show the button.
 
-You can accept donations with the Offline Donations gateway, which allows your donors to create a donation and make the payment via cheque or bank transfer (you can display your payment details to them).
+= Can I put more then one shortcode on the same post / page? =
+Yes, there is no limit to the amount of PayPal donations buttons that you can put on one post / page, or your entire site.
 
-= How do I add a grid of campaigns to my page? =
-
-Easy. Just add `[campaigns]` into your page content. 
-
-= How do I add a donation form to a page? =
-
-You can use the `[Gandhipeacedonation_donation_form]` shortcode to embed a particular campaign's donation form on a page.
-
-______________________________________________THE END____________________________________________________________________
+== Screenshots ==
+1. Donation Button
+2. Settings Page
+3. buttons Page
+4. Orders Page
+5. Widget Page
+6. Button Inserter
