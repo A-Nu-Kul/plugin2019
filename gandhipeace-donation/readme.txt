@@ -33,7 +33,7 @@ This PayPal plugin works with any WordPress theme.
 *	View donations made in your WordPress admin
 *	Button Manager
 *   Page / Post Button shortcode Inserter
-*	Donation Widget
+*	Donation Widget.
 *   Built in support for 18 languages (PayPal currently supports 18 languages)
 *   Built in support 25 currencies (PayPal currently supports 25 currencies)
 *	Each button can have its own language and currency
