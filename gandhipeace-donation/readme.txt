@@ -1,5 +1,5 @@
 === Gandhipeace Donation ===
-Contributors:AnukulSharma,wp-plugin
+Contributors:AnukulSharma
 Donate link: http://anukuls.sgedu.site/
 Version: 1.0.0
 Tags: donation, donate, donations, charity, paypal, gateway, paypal donation, paypal donate
