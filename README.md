@@ -1,6 +1,6 @@
 Gandhipeace Donation
 Contributors:AnukulSharma
-Donate link: http://anukuls.sgedu.site/
+Donate link: http://anukuls.sgedu.site/donation
 Version: 1.0.0
 Tags: donation, donate, donations, charity, paypal, gateway, paypal donation, paypal donate
 Author URI: http://anukuls.sgedu.site/
