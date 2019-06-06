@@ -23,6 +23,6 @@ We can create a campaign and event for the fundraising project and get the fundi
 > 6. You are now ready to start collecting donations via PayPal on the site.
 
 ==Used Tools==
-1.Atom
-2.Sublime Text 
-3.Wordpress
+>1.Atom
+>2.Sublime Text 
+>3.Wordpress
