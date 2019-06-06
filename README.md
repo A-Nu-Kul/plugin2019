@@ -14,7 +14,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 == Description ==
 We can create a campaign and event for the fundraising project and get the funding so that we can get donations so that we can get the donations in the site.This plugin will allow us to collect PayPal donations on our website. We can place a PayPal Donation button anywhere on our site where we want to collect money. People can use their PayPal account to donate money to us.
 
-== Automatic Installation ==
+== Installation Process ==
 > 1. Sign in to your WordPress site as an administrator.
 > 2. In the main menu go to Plugins -> Add New.
 > 3. Search for PayPal Donation Button and click install.
