@@ -2,14 +2,14 @@
 /*
 Plugin Name: Gandhipeace Donation
 Plugin URI: http://anukuls.sgedu.site/plugin
-Description: Gandhipeace Donation is the donation plugin that gives user everything that need to start accepting donations today. Designed to integrate seamlessly with WordPress, Gandhipeacedonation allows the organization to create powerful fundraising platforms on their own website.Easy and simple setup and insertion of PayPal donate buttons with a shortcode or through a sidebar Widget. Donation purpose can be set for each button. A few other customization options are available as well.
+Description: Gandhipeace Donation is the donation plugin that gives user everything that need to start accepting donations for GSML.
 Author: Anukul Sharma
 Author URI: http://anukuls.sgedu.site/
 Version: 1.0.0
 License: GPLv2 or later
 Text Domain: gandhipeace-donations
 */
-function wpedon_plugin_buttons() {
+function gsml_plugin_buttons() {
 
 	if (!isset($_GET['action']) || $_GET['action'] == "delete" || !empty($_GET['action2']) == "delete") {
 		
@@ -19,13 +19,13 @@ function wpedon_plugin_buttons() {
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 		}
 		
-		class wpedon_buttons_table extends WP_List_Table {
+		class gsml_buttons_table extends WP_List_Table {
 			
 			
 			function get_data() {
 				global $wp_query;
 				
-				$args = array('post_type' => 'gandhipeacedonation_don_button','posts_per_page' => -1);
+				$args = array('post_type' => 'wpplugin_don_button','posts_per_page' => -1);
 				
 				$posts = get_posts($args);
 				
@@ -39,9 +39,8 @@ function wpedon_plugin_buttons() {
 						$post_title = "(No Item Name)";
 					}
 					
-					$shortcode = 	'<input type="text" value="[wpedon id='.$id.']">';
-					$price = 		esc_attr(get_post_meta($id,'wpedon_button_price',true));
-					$sku = 			esc_attr(get_post_meta($id,'wpedon_button_id',true));
+					$shortcode = 	'<input type="text" value="[gsml id='.$id.']">';
+					$price = 		esc_attr(get_post_meta($id,'gsml_button_price',true));
 					
 					if (empty($price)) {
 						$price = "Customer enters amount";
@@ -54,8 +53,7 @@ function wpedon_plugin_buttons() {
 						'ID' 		=> $id,
 						'product' 	=> $product,
 						'shortcode' => $shortcode,
-						'price' 	=> $price,
-						'sku'		=> $sku
+						'price' 	=> $price
 					);
 					
 					$count++;
@@ -86,7 +84,6 @@ function wpedon_plugin_buttons() {
 						case 'product':
 						case 'shortcode':
 						case 'price':
-						case 'sku':
 							return $item[$column_name];
 						default:
 							return print_r($item,true);
@@ -96,11 +93,11 @@ function wpedon_plugin_buttons() {
 			function column_product($item){
 			
 				// edit
-				$edit_bare = '?page=wpedon_buttons&action=edit&product='.$item['ID'];
+				$edit_bare = '?page=gsml_buttons&action=edit&product='.$item['ID'];
 				$edit_url = wp_nonce_url($edit_bare, 'edit_'.$item['ID']);
 				
 				// delete
-				$delete_bare = '?page=wpedon_buttons&action=delete&inline=true&product='.$item['ID'];
+				$delete_bare = '?page=gsml_buttons&action=delete&inline=true&product='.$item['ID'];
 				$delete_url = wp_nonce_url($delete_bare, 'bulk-'.$this->_args['plural']);
 				
 				$actions = array(
@@ -130,8 +127,7 @@ function wpedon_plugin_buttons() {
 					'cb'			=> '<input type="checkbox" />',
 					'product'     	=> 'Name',
 					'shortcode'     => 'Shortcode',
-					'price'    		=> 'Amount',
-					'sku'			=> 'ID'
+					'price'    		=> 'Amount'
 				);
 				return $columns;
 			}
@@ -205,9 +201,9 @@ function wpedon_plugin_buttons() {
 		}
 	
 
-		function wpedon_tt_render_list_page() {
+		function gsml_tt_render_list_page() {
 
-			$testListTable = new wpedon_buttons_table();
+			$testListTable = new gsml_buttons_table();
 			$testListTable->prepare_items();
 
 			?>
@@ -234,9 +230,9 @@ function wpedon_plugin_buttons() {
 			
 				<table width="100%"><tr><td>
 				<br />
-				<span style="font-size:20pt;">PayPal Donation Buttons</span>
+				<span style="font-size:20pt;color: orange">Gandhipeace Donation Buttons</span>
 				</td><td valign="bottom">
-				<a href="?page=wpedon_buttons&action=new" name='btn2' class='button-primary' style='font-size: 14px;height: 30px;float: right;'>New PayPal Donation Button</a>
+				<a href="?page=gsml_buttons&action=new" name='btn2' class='button-primary' style='font-size: 14px;height: 30px;float: right;background-color: orange;'>New Gandhipeace Donation Button</a>
 				</td></tr></table>
 				
 				<?php
@@ -267,7 +263,7 @@ function wpedon_plugin_buttons() {
 			<?php
 		}
 		
-		wpedon_tt_render_list_page();
+		gsml_tt_render_list_page();
 		
 		
 	}
@@ -297,7 +293,7 @@ function wpedon_plugin_buttons() {
 		}
 		
 		if (empty($post_id)) {
-			echo'<script>window.location="?page=wpedon_buttons&message=nothing_deleted"; </script>';
+			echo'<script>window.location="?page=gsml_buttons&message=nothing_deleted"; </script>';
 			exit;
 		}
 		
@@ -306,46 +302,36 @@ function wpedon_plugin_buttons() {
 			$to_delete = intval($to_delete);
 			
 			if (!$to_delete) {
-				echo'<script>window.location="?page=wpedon_buttons&message=error"; </script>';
+				echo'<script>window.location="?page=gsml_buttons&message=error"; </script>';
 				exit;
 			}
 			
 			wp_delete_post($to_delete,1);
-			delete_post_meta($to_delete,'wpedon_button_price');
-			delete_post_meta($to_delete,'wpedon_button_id');
-			delete_post_meta($to_delete,'wpedon_button_enable_name');
-			delete_post_meta($to_delete,'wpedon_button_enable_price');
-			delete_post_meta($to_delete,'wpedon_button_enable_currency');
-			delete_post_meta($to_delete,'wpedon_button_currency');
-			delete_post_meta($to_delete,'wpedon_button_language');
-			delete_post_meta($to_delete,'wpedon_button_account');
-			delete_post_meta($to_delete,'wpedon_button_return');
-			delete_post_meta($to_delete,'wpedon_button_buttonsize');
-			delete_post_meta($to_delete,'wpedon_button_scpriceprice');
-			delete_post_meta($to_delete,'wpedon_button_scpriceaname');
-			delete_post_meta($to_delete,'wpedon_button_scpricebname');
-			delete_post_meta($to_delete,'wpedon_button_scpricecname');
-			delete_post_meta($to_delete,'wpedon_button_scpricedname');
-			delete_post_meta($to_delete,'wpedon_button_scpriceename');
-			delete_post_meta($to_delete,'wpedon_button_scpricefname');
-			delete_post_meta($to_delete,'wpedon_button_scpricegname');
-			delete_post_meta($to_delete,'wpedon_button_scpricehname');
-			delete_post_meta($to_delete,'wpedon_button_scpriceiname');
-			delete_post_meta($to_delete,'wpedon_button_scpricejname');
-			delete_post_meta($to_delete,'wpedon_button_scpricea');
-			delete_post_meta($to_delete,'wpedon_button_scpriceb');
-			delete_post_meta($to_delete,'wpedon_button_scpricec');
-			delete_post_meta($to_delete,'wpedon_button_scpriced');
-			delete_post_meta($to_delete,'wpedon_button_scpricee');
-			delete_post_meta($to_delete,'wpedon_button_scpricef');
-			delete_post_meta($to_delete,'wpedon_button_scpriceg');
-			delete_post_meta($to_delete,'wpedon_button_scpriceh');
-			delete_post_meta($to_delete,'wpedon_button_scpricei');
-			delete_post_meta($to_delete,'wpedon_button_scpricej');
+			delete_post_meta($to_delete,'gsml_button_price');
+			delete_post_meta($to_delete,'gsml_button_id');
+			delete_post_meta($to_delete,'gsml_button_enable_name');
+			delete_post_meta($to_delete,'gsml_button_enable_price');
+			delete_post_meta($to_delete,'gsml_button_enable_currency');
+			delete_post_meta($to_delete,'gsml_button_currency');
+			delete_post_meta($to_delete,'gsml_button_language');
+			delete_post_meta($to_delete,'gsml_button_account');
+			delete_post_meta($to_delete,'gsml_button_return');
+			delete_post_meta($to_delete,'gsml_button_buttonsize');
+			delete_post_meta($to_delete,'gsml_button_scpriceprice');
+			delete_post_meta($to_delete,'gsml_button_scpriceaname');
+			delete_post_meta($to_delete,'gsml_button_scpricebname');
+			delete_post_meta($to_delete,'gsml_button_scpricecname');
+			delete_post_meta($to_delete,'gsml_button_scpricedname');
+			delete_post_meta($to_delete,'gsml_button_scpriceename');
+			delete_post_meta($to_delete,'gsml_button_scpricea');
+			delete_post_meta($to_delete,'gsml_button_scpriceb');
+			delete_post_meta($to_delete,'gsml_button_scpricec');
+			delete_post_meta($to_delete,'gsml_button_scpriced');
+			delete_post_meta($to_delete,'gsml_button_scpricee');
 			
 		}
 		
-		echo'<script>window.location="?page=wpedon_buttons&message=deleted"; </script>';
+		echo'<script>window.location="?page=gsml_buttons&message=deleted"; </script>';
 		exit;
 		
 	}
@@ -353,7 +339,7 @@ function wpedon_plugin_buttons() {
 	
 	// admin orders page no action taken
 	if (isset($_GET['action']) && $_GET['action'] == "-1") {
-		echo'<script>window.location="?page=wpedon_buttons&message=nothing"; </script>';
+		echo'<script>window.location="?page=gsml_buttons&message=nothing"; </script>';
 	}
 	// end admin orders page no action taken
 
