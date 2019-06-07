@@ -2,7 +2,7 @@
 /*
 Plugin Name: Gandhipeace Donation
 Plugin URI: http://anukuls.sgedu.site/plugin
-Description: Gandhipeace Donation is the donation plugin that gives user everything that need to start accepting donations today. Designed to integrate seamlessly with WordPress, Gandhipeacedonation allows the organization to create powerful fundraising platforms on their own website.Easy and simple setup and insertion of PayPal donate buttons with a shortcode or through a sidebar Widget. Donation purpose can be set for each button. A few other customization options are available as well.
+Description: Gandhipeace Donation is the donation plugin that gives user everything that need to start accepting donations for GSML.
 Author: Anukul Sharma
 Author URI: http://anukuls.sgedu.site/
 Version: 1.0.0
@@ -10,47 +10,16 @@ License: GPLv2 or later
 Text Domain: gandhipeace-donations
 */
 // paypal post
-add_action('admin_post_add_wpedon_button_ipn', 'gandhipeacedonation_wpedon_button_ipn');
-add_action('admin_post_nopriv_add_wpedon_button_ipn', 'gandhipeacedonation_wpedon_button_ipn');
+// paypal post
+add_action('admin_post_add_gsml_button_ipn', 'wpplugin_gsml_button_ipn');
+add_action('admin_post_nopriv_add_gsml_button_ipn', 'wpplugin_gsml_button_ipn');
 
-function gandhipeacedonation_wpedon_button_ipn() {
+function wpplugin_gsml_button_ipn() {
 
-	$options = get_option('wpedon_settingsoptions');
+	$options = get_option('gsml_settingsoptions');
 	foreach ($options as $k => $v ) { $value[$k] = esc_attr($v); }
-	
-	if ($value['mode'] == "1") {
-		define("USE_SANDBOX", 1);
-	} else {
-		define("USE_SANDBOX", 0);
-	}
 
-	$raw_post_data = file_get_contents('php://input');
-	$raw_post_array = explode('&', $raw_post_data);
-	$myPost = array();
-	foreach ($raw_post_array as $keyval) {
-		$keyval = explode ('=', $keyval);
-		if (count($keyval) == 2)
-			$myPost[$keyval[0]] = urldecode($keyval[1]);
-	}
-
-	$req = 'cmd=_notify-validate';
-	if(function_exists('get_magic_quotes_gpc')) {
-		$get_magic_quotes_exists = true;
-	}
-	foreach ($myPost as $key => $value) {
-		if($get_magic_quotes_exists == true && get_magic_quotes_gpc() == 1) {
-			$value = urlencode(stripslashes($value));
-		} else {
-			$value = urlencode($value);
-		}
-		$req .= "&$key=$value";
-	}
-
-	if(USE_SANDBOX == true) {
-		$paypal_url = "https://www.sandbox.paypal.com/cgi-bin/webscr";
-	} else {
 		$paypal_url = "https://www.paypal.com/cgi-bin/webscr";
-	}
 
 	$ch = curl_init($paypal_url);
 	if ($ch == FALSE) {
@@ -124,20 +93,20 @@ function gandhipeacedonation_wpedon_button_ipn() {
 				'post_title'    => $item_name,
 				'post_status'   => 'publish',
 				'post_author'   => $post_id_author,
-				'post_type'     => 'gandhipeacedonation_don_order'
+				'post_type'     => 'wpplugin_don_order'
 			);
 			
 			// left here as a debugging tool
 			//$payment_cycle = file_get_contents("php://input");
 			
 			$post_id = wp_insert_post($ipn_post);
-			update_post_meta($post_id, 'wpedon_button_item_number', $item_number);
-			update_post_meta($post_id, 'wpedon_button_payment_status', $payment_status);
-			update_post_meta($post_id, 'wpedon_button_payment_amount', $payment_amount);
-			update_post_meta($post_id, 'wpedon_button_payment_currency', $payment_currency);
-			update_post_meta($post_id, 'wpedon_button_txn_id', $txn_id);
-			update_post_meta($post_id, 'wpedon_button_payer_email', $payer_email);
-			update_post_meta($post_id, 'wpedon_button_payment_cycle', $payment_cycle);
+			update_post_meta($post_id, 'gsml_button_item_number', $item_number);
+			update_post_meta($post_id, 'gsml_button_payment_status', $payment_status);
+			update_post_meta($post_id, 'gsml_button_payment_amount', $payment_amount);
+			update_post_meta($post_id, 'gsml_button_payment_currency', $payment_currency);
+			update_post_meta($post_id, 'gsml_button_txn_id', $txn_id);
+			update_post_meta($post_id, 'gsml_button_payer_email', $payer_email);
+			update_post_meta($post_id, 'gsml_button_payment_cycle', $payment_cycle);
 			
 		}
 		
