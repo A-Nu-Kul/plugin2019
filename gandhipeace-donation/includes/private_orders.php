@@ -2,25 +2,26 @@
 /*
 Plugin Name: Gandhipeace Donation
 Plugin URI: http://anukuls.sgedu.site/plugin
-Description: Gandhipeace Donation is the donation plugin that gives user everything that need to start accepting donations today. Designed to integrate seamlessly with WordPress, Gandhipeacedonation allows the organization to create powerful fundraising platforms on their own website.Easy and simple setup and insertion of PayPal donate buttons with a shortcode or through a sidebar Widget. Donation purpose can be set for each button. A few other customization options are available as well.
+Description: Gandhipeace Donation is the donation plugin that gives user everything that need to start accepting donations for GSML.
 Author: Anukul Sharma
 Author URI: http://anukuls.sgedu.site/
 Version: 1.0.0
 License: GPLv2 or later
 Text Domain: gandhipeace-donations
 */
-function wpedon_plugin_orders() {
+//Plugin actions are defined
+function gsml_plugin_orders() {
 
-	if (!isset($_GET['action']) || $_GET['action'] == "delete" || $_GET['action2'] == "delete") {
+	if (!isset($_GET['action']) || $_GET['action'] == "delete" || $_GET['action2'] == "delete") { //to delete 
 
-		class wpedon_button_orders_table extends WP_List_Table {
+		class gsml_button_orders_table extends WP_List_Table {
 			
-			
+			//gets the infromation of the donar or payee
 			function get_data() {
 				global $wp_query;
 				
 				$args = array(
-					'post_type' => 'gandhipeacedonation_don_button',
+					'post_type' => 'wpplugin_don_button',
 					'posts_per_page' => -1,
 					'order' => 'DESC',
 					'orderby' => 'ID'
@@ -34,11 +35,10 @@ function wpedon_plugin_orders() {
 					$id = 				esc_attr($posts[$count]->ID);
 					$post_title = 		esc_attr($posts[$count]->post_title);
 					$post_date = 		esc_attr($posts[$count]->post_date);
-					$item_number = 		esc_attr(get_post_meta($id,'wpedon_button_item_number',true));
-					$payment_status = 	esc_attr(get_post_meta($id,'wpedon_button_payment_status',true));
-					$payment_amount = 	esc_attr(get_post_meta($id,'wpedon_button_payment_amount',true));
-					$payer_email = 		esc_attr(get_post_meta($id,'wpedon_button_payer_email',true));
-					$payment_cycle = 	esc_attr(get_post_meta($id,'wpedon_button_payment_cycle',true));
+					$item_number = 		esc_attr(get_post_meta($id,'gsml_button_item_number',true));
+					$payment_status = 	esc_attr(get_post_meta($id,'gsml_button_payment_status',true));
+					$payment_amount = 	esc_attr(get_post_meta($id,'gsml_button_payment_amount',true));
+					$payer_email = 		esc_attr(get_post_meta($id,'gsml_button_payer_email',true));
 					
 					
 					$order = $id;
@@ -94,11 +94,11 @@ function wpedon_plugin_orders() {
 			function column_order($item){
 			
 				// view
-				$view_bare = '?page=wpedon_menu&action=view&order='.$item['ID'];
+				$view_bare = '?page=gsml_menu&action=view&order='.$item['ID'];
 				$view_url = wp_nonce_url($view_bare, 'view_'.$item['ID']);
 				
 				// delete
-				$delete_bare = '?page=wpedon_menu&action=delete&inline=true&order='.$item['ID'];
+				$delete_bare = '?page=gsml_menu&action=delete&inline=true&order='.$item['ID'];
 				$delete_url = wp_nonce_url($delete_bare, 'bulk-'.$this->_args['plural']);
 				
 				$actions = array(
@@ -212,9 +212,9 @@ function wpedon_plugin_orders() {
 		}
 		
 		
-		function wpedon_tt_render_list_pagea() {
+		function gsml_tt_render_list_pagea() {
 			
-			$testListTable = new wpedon_button_orders_table();
+			$testListTable = new gsml_button_orders_table();
 			$testListTable->prepare_items();
 			
 			?>
@@ -241,7 +241,7 @@ function wpedon_plugin_orders() {
 			
 				<table width="100%"><tr><td>
 				<br />
-				<span style="font-size:20pt;">Donations</span>
+				<span style="font-size:20pt;color: orange;">Donations</span>
 				</td><td valign="bottom">
 				</td></tr></table>
 				
@@ -270,7 +270,7 @@ function wpedon_plugin_orders() {
 			<?php
 		}
 		
-		wpedon_tt_render_list_pagea();
+		gsml_tt_render_list_pagea();
 	}
 	
 
@@ -292,7 +292,7 @@ function wpedon_plugin_orders() {
 			$post_id = intval($_GET['order']);
 			
 			if (!$post_id) {
-				echo'<script>window.location="admin.php?page=wpedon_menu"; </script>';
+				echo'<script>window.location="admin.php?page=gsml_menu"; </script>';
 				exit;
 			}
 			
@@ -301,14 +301,14 @@ function wpedon_plugin_orders() {
 			$post_data = get_post($post_id);
 			$title = $post_data->post_title;
 			$date = $post_data->post_date;
-			$txn_id = get_post_meta($post_id,'wpedon_button_txn_id',true);
+			$txn_id = get_post_meta($post_id,'gsml_button_txn_id',true);
 			?>
 				
 				<table width="100%"><tr><td valign="bottom" width="85%">
 				<br />
-				<span style="font-size:20pt;">View Donation</span>
+				<span style="font-size:20pt;color: orange;">View Donation</span>
 				</td><td valign="bottom">
-				<a href="?page=wpedon_menu" class="button-secondary" style="font-size: 14px;height: 30px;float: right;">View All Donations</a>
+				<a href="?page=gsml_menu" class="button-secondary" style="font-size: 14px;height: 30px;float: right;background-color: orange;color: white;">View All Donations</a>
 				</td></tr></table>
 				
 				<?php
@@ -337,19 +337,19 @@ function wpedon_plugin_orders() {
 						<br /></td><td></td></tr><tr><td>
 						<b>Item</b></td></tr><tr><td>
 						Purpose / Name: </td><td><?php echo esc_attr($title); ?></td></tr><tr><td>
-						Amount: </td><td><?php echo esc_attr(get_post_meta($post_id,'wpedon_button_payment_amount',true)); ?></td></tr><tr><td>
+						Amount: </td><td><?php echo esc_attr(get_post_meta($post_id,'gsml_button_payment_amount',true)); ?></td></tr><tr><td>
 						Recurring: </td><td><?php
-						if (get_post_meta($post_id,'wpedon_button_payment_cycle',true) != "") {
-							echo esc_attr(get_post_meta($post_id,'wpedon_button_payment_cycle',true));
+						if (get_post_meta($post_id,'gsml_button_payment_cycle',true) != "") {
+							echo esc_attr(get_post_meta($post_id,'gsml_button_payment_cycle',true));
 						} else {
 							echo "No";
 						}						
 						?></td></tr><tr><td>
-						Donation ID: </td><td><?php echo esc_attr(get_post_meta($post_id,'wpedon_button_item_number',true)); ?></td></tr><tr><td>
+						Donation ID: </td><td><?php echo esc_attr(get_post_meta($post_id,'gsml_button_item_number',true)); ?></td></tr><tr><td>
 						<br /></td><td></td></tr><tr><td>
 						<b>Payer</b></td></tr><tr><td>
-						Payer Email: </td><td><?php echo esc_attr(get_post_meta($post_id,'wpedon_button_payer_email',true)); ?></td></tr><tr><td>
-						Payer Currency: </td><td><?php echo esc_attr(get_post_meta($post_id,'wpedon_button_payment_currency',true)); ?></td></tr><tr><td>
+						Payer Email: </td><td><?php echo esc_attr(get_post_meta($post_id,'gsml_button_payer_email',true)); ?></td></tr><tr><td>
+						Payer Currency: </td><td><?php echo esc_attr(get_post_meta($post_id,'gsml_button_payment_currency',true)); ?></td></tr><tr><td> 
 						
 					</td></tr></table>
 						
@@ -380,7 +380,7 @@ function wpedon_plugin_orders() {
 		}
 		
 		if (empty($post_id)) {
-			echo'<script>window.location="?page=wpedon_menu&message=nothing_deleted"; </script>';
+			echo'<script>window.location="?page=gsml_menu&message=nothing_deleted"; </script>';
 		}
 		
 		foreach ($post_id as $to_delete) {
@@ -388,21 +388,21 @@ function wpedon_plugin_orders() {
 			$to_delete = intval($to_delete);
 			
 			if (!$to_delete) {
-				echo'<script>window.location="?page=wpedon_buttons&message=error"; </script>';
+				echo'<script>window.location="?page=gsml_buttons&message=error"; </script>';
 				exit;
 			}
 			
 			wp_delete_post($to_delete,1);
-			delete_post_meta($to_delete,'wpedon_button_item_number');
-			delete_post_meta($to_delete,'wpedon_button_payment_status');
-			delete_post_meta($to_delete,'wpedon_button_payment_amount');
-			delete_post_meta($to_delete,'wpedon_button_payment_cycle');
-			delete_post_meta($to_delete,'wpedon_button_txn_id');
-			delete_post_meta($to_delete,'wpedon_button_payer_email');
+			delete_post_meta($to_delete,'gsml_button_item_number');
+			delete_post_meta($to_delete,'gsml_button_payment_status');
+			delete_post_meta($to_delete,'gsml_button_payment_amount');
+			delete_post_meta($to_delete,'gsml_button_payment_cycle');
+			delete_post_meta($to_delete,'gsml_button_txn_id');
+			delete_post_meta($to_delete,'gsml_button_payer_email');
 			
 		}
 		
-		echo'<script>window.location="?page=wpedon_menu&message=deleted"; </script>';
+		echo'<script>window.location="?page=gsml_menu&message=deleted"; </script>';
 		
 	}
 	// end admin orders page delete order
@@ -410,7 +410,7 @@ function wpedon_plugin_orders() {
 	// admin orders page no action taken
 	if (isset($_GET['action']) && $_GET['action'] == "-1") {
 		
-		echo'<script>window.location="?page=wpedon_menu&message=nothing"; </script>';
+		echo'<script>window.location="?page=gsml_menu&message=nothing"; </script>';
 		
 	}
 	// end admin orders page no action taken
