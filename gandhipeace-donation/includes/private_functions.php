@@ -20,7 +20,7 @@ function gsml_admin_notices() {
 
 
 
-// add paypal menu
+// Adding paypal menu for GSML
 add_action("admin_menu", "gsml_plugin_menu");
 function gsml_plugin_menu() {
 	global $plugin_dir_url;
@@ -34,7 +34,7 @@ function gsml_plugin_menu() {
 	add_submenu_page("gsml_menu", "Settings", "Settings", "manage_options", "gsml_settings", "gsml_plugin_options");
 }
 
-
+//To open PayPal in new or the same link
 
 function gsml_action_links($links) {
 
